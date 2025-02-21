@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "magnetic_constrait.h"
+#include "magnetic_rigid_body.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -14,6 +15,7 @@ void initialize_magnetic_constraint_module(ModuleInitializationLevel p_level) {
 	}
 
 	GDREGISTER_CLASS(MagneticConstraint);
+	GDREGISTER_CLASS(MagneticRigidBody3D);
 }
 
 void uninitialize_magnetic_constraint_module(ModuleInitializationLevel p_level) {
