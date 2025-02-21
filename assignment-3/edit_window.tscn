@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://e7ei7l8tsqpn"]
+
+[sub_resource type="GDScript" id="GDScript_ssb8d"]
+script/source = "extends Window
+
+var target_ball: MagneticRigidBody3D
+
+func setup(ball: MagneticRigidBody3D):
+	target_ball = ball 
+	$StrengthSpinBox.value = ball.magnetic_strength
+	$PolarityOptionButton.selected = 0 if ball.magnetic_pole > 0 else 1
+	
+func _on_apply_pressed(): 
+	target_ball.magnetic_strength = $StrengthSpinBox.value
+	target_ball.magnetic_pole = 1 if $PolarityOptionButton.selected == 0 else -1
+	hide()
+	
+func _on_cancel_pressed():
+	hide()
+"
+
+[node name="EditWindow" type="Window"]
+position = Vector2i(0, 36)
+size = Vector2i(250, 100)
+script = SubResource("GDScript_ssb8d")
+
+[node name="StrengthSpinBox" type="SpinBox" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 15.615
+offset_top = -35.0
+offset_right = 98.6775
+offset_bottom = -4.0
+grow_vertical = 2
+
+[node name="PolarityOptionButton" type="OptionButton" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -56.195
+offset_top = -35.0
+offset_right = -24.195
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ApplyButton" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -40.0
+offset_right = 67.0
+offset_bottom = -9.0
+grow_vertical = 0
+text = "Apply"
+
+[node name="CancelButton" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -40.0
+offset_right = -10.0
+offset_bottom = -9.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Cancel"

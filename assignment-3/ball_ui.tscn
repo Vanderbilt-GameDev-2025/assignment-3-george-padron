@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh17c1ntvtcpg"]
+
+[sub_resource type="GDScript" id="GDScript_q35dv"]
+script/source = "extends HBoxContainer
+
+var target_ball: MagneticRigidBody3D
+
+func setup(ball: MagneticRigidBody3D): 
+	target_ball = ball 
+	$BallNameLabel.text = \"Ball %d\" % BallManager.current_balls.find(ball)
+	
+	ball.connect(\"parameters_changed\", update_display)
+	update_display()
+
+func update_display(): 
+	$BallNameLabel.text = \"Ball %d (S:%.1f P:%d)\" % [
+		BallManager.current_balls.find(target_ball),
+		target_ball.magnetic_strength,
+		target_ball.magnetic_pole
+	]
+	
+func _on_edit_pressed(): 
+	get_tree().call_group(\"ui_controller\", \"show_edit_window\", target_ball)
+	
+func _on_delete_pressed(): 
+	BallManager.remove_ball(target_ball)
+"
+
+[node name="BallUI" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_q35dv")
+
+[node name="BallNameLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="."]
+layout_mode = 2

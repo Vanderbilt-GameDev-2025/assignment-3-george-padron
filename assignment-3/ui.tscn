@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds0es52m3hnch"]
+
+[ext_resource type="PackedScene" uid="uid://e7ei7l8tsqpn" path="res://edit_window.tscn" id="2_br3n3"]
+
+[sub_resource type="GDScript" id="GDScript_ohqfl"]
+script/source = "extends Control
+
+@onready var ball_list = $VBoxContainer
+@onready var edit_window = $EditWindow
+@onready var add_button = $VBoxContainer/AddButton
+
+func _ready(): 
+	BallManager.connect(\"balls_updated\", update_ball_list)
+	update_ball_list()
+	update_add_button()
+
+func update_ball_list(): 
+	# Clear existing entries
+	for child in ball_list.get_children():
+		child.queue_free()
+		
+	for ball in BallManager.current_balls:
+		var entry = preload(\"res://ball_ui.tscn\").instantiate()
+		entry.setup(ball)
+		ball_list.add_child(entry)
+		
+func update_add_button(): 
+	add_button.disabled = BallManager.current_balls.size() >= BallManager.max_balls
+	
+func show_edit_window(ball: MagneticRigidBody3D):
+	edit_window.setup(ball)
+	edit_window.popup_centered()
+	
+func _on_add_button_pressed(): 
+	var spawn_pos = Vector3(randf_range(-4,4), 10, randf_range(-4,4))
+	BallManager.add_ball(spawn_pos)
+	update_add_button()
+"
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ohqfl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 32.0
+offset_right = 234.0
+offset_bottom = 82.0
+
+[node name="AddButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Add Magnet"
+
+[node name="EditWindow" parent="." instance=ExtResource("2_br3n3")]
+initial_position = 1
+visible = false

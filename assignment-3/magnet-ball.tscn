@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpclhe0a5b6ev"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_klvow"]
+
+[node name="MagnetBall" type="MagneticRigidBody3D"]
+magnetic_strength = 1.0
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radial_segments = 24
+rings = 24
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_klvow")

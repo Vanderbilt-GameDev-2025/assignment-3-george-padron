@@ -1,37 +1,86 @@
-[gd_scene load_steps=3 format=3 uid="uid://grcifcd4g0o1"]
+[gd_scene load_steps=5 format=3 uid="uid://grcifcd4g0o1"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_klvow"]
+[ext_resource type="PackedScene" uid="uid://cpclhe0a5b6ev" path="res://magnet-ball.tscn" id="1_yqhea"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wwccw"]
 size = Vector3(10, 1, 10)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gn1x3"]
+size = Vector3(0.5, 10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pna8a"]
+size = Vector3(0.45, 10, 10)
+
 [node name="World" type="Node3D"]
 
 [node name="MagneticConstraint" type="MagneticConstraint" parent="."]
-
-[node name="MagneticRigidBody3D" type="MagneticRigidBody3D" parent="."]
-magnetic_strength = 1.0
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0356, 0, 0)
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="MagneticRigidBody3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MagneticRigidBody3D"]
-shape = SubResource("SphereShape3D_klvow")
-
-[node name="MagneticRigidBody3D2" type="MagneticRigidBody3D" parent="."]
-magnetic_strength = 1.0
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14845, 0, 0)
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="MagneticRigidBody3D2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MagneticRigidBody3D2"]
-shape = SubResource("SphereShape3D_klvow")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0147009, 0.0656271, -0.19594)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.813938, 0, 5.32563)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 7)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.994395, 0, -0.105726, 0.0233929, 0.975215, 0.220019, 0.103106, -0.221259, 0.969749, 0, 0, 0)
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor"]
 shape = SubResource("BoxShape3D_wwccw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World/Floor"]
+size = Vector3(10, 1, 10)
+
+[node name="LeftWall" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/LeftWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.243652, 0, 0)
+shape = SubResource("BoxShape3D_gn1x3")
+
+[node name="RightWall" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RightWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.201904, 0, 0)
+shape = SubResource("BoxShape3D_pna8a")
+
+[node name="BackWall" type="StaticBody3D" parent="World"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/BackWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.201904, 0, 0)
+shape = SubResource("BoxShape3D_pna8a")
+
+[node name="FrontWall" type="StaticBody3D" parent="World"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/FrontWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.201904, 0, 0)
+shape = SubResource("BoxShape3D_pna8a")
+
+[node name="Magnets" type="Node3D" parent="."]
+
+[node name="MagnetBall" parent="Magnets" instance=ExtResource("1_yqhea")]
+magnetic_strength = 4.0
+magnetic_pole = -1.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+script = null
+
+[node name="MagnetBall2" parent="Magnets" instance=ExtResource("1_yqhea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99649, 4.76837e-07, -0.0129784)
+script = null
+
+[node name="MagnetBall4" parent="Magnets" instance=ExtResource("1_yqhea")]
+magnetic_strength = 4.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42876, 4.76837e-07, -2.72303)
+
+[node name="MagnetBall3" parent="Magnets" instance=ExtResource("1_yqhea")]
+magnetic_strength = 5.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.14554)
+script = null
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
