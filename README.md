@@ -25,10 +25,11 @@ git clone "git@github.com:Vanderbilt-GameDev-2025/assignment-3-george-padron.git
 git submodule sync 
 git submodule update --init --recursive
 ```
+Make sure that the `godot-cpp` submodule is on branch *4.3*. **OTHERWISE GAME WILL FAIL TO COMPILE**.
 
 4. Build the GDExtension with `scons`. Replace `YOUR-VERSION-HERE` with your choice of `windows`, `linux`, etc. 
 
 ```
 scons platform={YOUR-VERSION-HERE}
 ```
-5. Open the `assignment-one-shooter` folder in Godot. You should now be able to play the game!
+5. Open the `assignment-3` folder located within in the cloned repo in Godot. You should now be able to play the game!
