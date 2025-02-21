@@ -1,7 +1,7 @@
 # Assignment 3 - Magnetic Constraint
 > *By George Padron* 
 
-This repo contains an extension to the Jolt physics engine, adding support for objects with a magnetic pull. This extension supports altering the polarity of objects dynamically, allowing for attraction and repulsion. The example game showcases this functionality, by creating a simple playground with basic magnetic balls which can 
+This repo contains an extension to the Jolt physics engine, adding support for objects with a magnetic pull. This extension supports altering the polarity of objects dynamically, allowing for attraction and repulsion. The attached project has a simple game with a basic magnetic ball scene that can be added and played around with. The attached video showcases the functionality in more detail
 
 ## Installation Instructions
 **Note:** Installation was only tested on Linux and Windows. Nevertheless, it should build just fine on MacOS
