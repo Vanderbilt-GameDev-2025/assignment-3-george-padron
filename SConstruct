@@ -18,7 +18,7 @@ sources = Glob("src/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "assignment-3/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
+        "assignment-3/bin/libmagneticconstraint.{}.{}.framework/libmagneticconstraint.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
@@ -26,19 +26,19 @@ if env["platform"] == "macos":
 elif env["platform"] == "ios":
     if env["ios_simulator"]:
         library = env.StaticLibrary(
-            "assignment-3/bin/libgdexample.{}.{}.simulator.a".format(
+            "assignment-3/bin/libmagneticconstraint.{}.{}.simulator.a".format(
                 env["platform"], env["target"]),
             source=sources,
         )
     else:
         library = env.StaticLibrary(
-            "assignment-3/bin/libgdexample.{}.{}.a".format(
+            "assignment-3/bin/libmagneticconstraint.{}.{}.a".format(
                 env["platform"], env["target"]),
             source=sources,
         )
 else:
     library = env.SharedLibrary(
-        "assignment-3/bin/libgdexample{}{}".format(
+        "assignment-3/bin/libmagneticconstraint{}{}".format(
             env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
